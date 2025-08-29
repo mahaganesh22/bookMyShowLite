@@ -86,7 +86,7 @@ const SeatsAvailable = ({ theaterDetails }) => {
         </div>
 
         {/* Show Times */}
-        <div className="SeatsAvailable-showtimes">
+        {/* <div className="SeatsAvailable-showtimes">
           <h2>Select Show Time</h2>
           <div className="SeatsAvailable-showtime-buttons">
             {theaterDetails.show_times?.map((time) => (
@@ -101,10 +101,10 @@ const SeatsAvailable = ({ theaterDetails }) => {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Available Dates */}
-        <div className="SeatsAvailable-dates">
+        {/* <div className="SeatsAvailable-dates">
           <h2>Available Dates</h2>
           <div className="SeatsAvailable-dates-list">
             {theaterDetails.available_dates?.map((date, index) => (
@@ -117,7 +117,7 @@ const SeatsAvailable = ({ theaterDetails }) => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Screen */}
         <div className="SeatsAvailable-screen-section">

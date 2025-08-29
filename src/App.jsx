@@ -1,42 +1,73 @@
-/*
-    In this website mainly "useParams()" hook is used for the "Routing" where it easier 
-    to implement.
-*/
+// Updated App.jsx - Use your existing but add error boundary
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import UpdatedHome from "./components/UpdatedHome";
 
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
 
-import {useState, useEffect, useRef} from "react"
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import Location from "./Location"
-import SignInPage from "./SignInPage"
-import Home from "./Home"
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
 
-// function DefaultReDirect () {
-//   const navigate = useNavigate();
+    componentDidCatch(error, errorInfo) {
+        console.error('Error caught by boundary:', error, errorInfo);
+    }
 
-//   useEffect(() => {
-//     navigate("/home")
-//   }, [navigate])
-// }
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div style={{
+                    minHeight: '100vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    padding: '20px',
+                    textAlign: 'center'
+                }}>
+                    <h1>Something went wrong</h1>
+                    <p>The application encountered an unexpected error.</p>
+                    <button 
+                        onClick={() => window.location.reload()}
+                        style={{
+                            padding: '12px 24px',
+                            backgroundColor: '#ff4444',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            marginTop: '16px'
+                        }}
+                    >
+                        Reload Page
+                    </button>
+                </div>
+            );
+        }
 
-function App () {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-
-        {/* when ever the path is "/" it is changed to "/home" and below method is executed
-        by taking path = "/home" automatically when the url includes "/home it opens the 
-        home page" */}
-
-        {/* <Route path = "/" element = {<DefaultReDirect/>}></Route> */}
-
-        <Route path = "/home" element = {<Home/>}></Route>
-        <Route path = "/home/:movieName/:ETNO" element = {<Home/>}/>
-        <Route path = "/home/:movieName/buytickets/:ETNO/:currentDate" element = {<Home/>}/>
-        <Route path = "/home/:movieName/buytickets/:ETNO/:Code/:currentDate" element = {<Home/>}/>
-      </Routes>
-    </Router>
-  )
+        return this.props.children;
+    }
 }
 
-export default App
+function App() {
+    return (
+        <ErrorBoundary>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Navigate to="/home" replace />} />
+                    <Route path="/home" element={<UpdatedHome />} />
+                    <Route path="/home/:movieName/:ETNO" element={<UpdatedHome />} />
+                    <Route path="/home/:movieName/buytickets/:ETNO/:currentDate" element={<UpdatedHome />} />
+                    <Route path="/home/:movieName/buytickets/:ETNO/:Code/:currentDate" element={<UpdatedHome />} />
+                </Routes>
+            </Router>
+        </ErrorBoundary>
+    );
+}
+
+export default App;

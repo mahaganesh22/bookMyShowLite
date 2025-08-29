@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import Location from "./Location"
-import SignInPage from "./SignInPage"
+//import SignInPage from "./SignInPage"
 import { useState } from "react";
-import AutoComplete from "./AutoComplete";
+//import AutoComplete from "./AutoComplete";
+import UpdatedAutoComplete from "./components/UpdatedAutoComplete"
+import UpdatedSignInPage from "./components/UpdatedSignInPage"
 
 
 
@@ -21,7 +23,7 @@ function Header () {
                 />
             </div>
 
-            {<AutoComplete/>}
+            {<UpdatedAutoComplete/>}
 
             <div className="location">
                 <button className = "locationButton" onClick={() => setShowLocation(true)}>Location</button>
@@ -51,7 +53,7 @@ function Header () {
 
                 {
                     setLogInPage && 
-                    <SignInPage 
+                    <UpdatedSignInPage 
                         verified = {() => setLogInVerification(true)}
                         onClose = {() => setShowLogInPage(false)}
                     />
